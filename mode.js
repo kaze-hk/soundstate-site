@@ -3,7 +3,6 @@ const tile = phone.querySelector('.sound-tile');
 const shade = phone.querySelector('.shade');
 const screen = phone.querySelector('.app-screen');
 const done = phone.querySelector('.done');
-const openButton = document.querySelector('.open-panel');
 const modes = [...phone.querySelectorAll('.modes button')];
 let selected = 0;
 let holdTimer;
@@ -20,15 +19,9 @@ function selectMode(index) {
 function showPanel(open) {
   shade.hidden = open;
   screen.hidden = !open;
-  openButton.hidden = open;
-  document.querySelector('#gesture').textContent = open ? panelHint : tileHint;
+  phone.classList.toggle("panel-open", open);
   (open ? done : tile).focus({preventScroll:true});
 }
-const tileHint = document.querySelector('#gesture').textContent;
-const panelHint = document.documentElement.lang === 'en'
-  ? 'Choose a mode or drag a volume slider. Tap ✓ to return.'
-  : '选择模式或拖动音量滑杆，点按 ✓ 返回磁贴。';
-
 function cancelHold() {
   clearTimeout(holdTimer);
   tile.classList.remove('holding');
@@ -58,15 +51,10 @@ tile.addEventListener('click', event => {
   if (!event.detail && !shade.hidden) selectMode((selected + 1) % modes.length);
 });
 modes.forEach((button, i) => button.addEventListener('click', () => selectMode(i)));
-openButton.addEventListener('click', () => showPanel(true));
+tile.addEventListener('keydown', event => {
+  if (event.key === 'ArrowDown') { event.preventDefault(); showPanel(true); }
+});
 done.addEventListener('click', () => showPanel(false));
 phone.addEventListener('keydown', event => {
   if (event.key === 'Escape' && !screen.hidden) showPanel(false);
-});
-
-phone.querySelectorAll('.channel input').forEach((slider, index) => {
-  const fill = phone.querySelectorAll('.monitor-meter i')[index];
-  const sync = () => { fill.style.width = (100 * slider.value / slider.max) + '%'; };
-  slider.addEventListener('input', sync);
-  sync();
 });
