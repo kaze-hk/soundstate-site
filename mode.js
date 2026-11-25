@@ -13,7 +13,7 @@ function selectMode(index) {
   selected = index;
   phone.dataset.mode = String(index);
   tile.querySelector('.tile-mode').textContent = modes[index].getAttribute('aria-label');
-  tile.querySelector('.tile-icon').textContent = modes[index].firstElementChild.textContent;
+  tile.querySelector('.tile-icon').replaceChildren(modes[index].querySelector('svg').cloneNode(true));
   modes.forEach((button, i) => button.setAttribute('aria-pressed', String(index === i)));
 }
 
@@ -62,4 +62,11 @@ openButton.addEventListener('click', () => showPanel(true));
 done.addEventListener('click', () => showPanel(false));
 phone.addEventListener('keydown', event => {
   if (event.key === 'Escape' && !screen.hidden) showPanel(false);
+});
+
+phone.querySelectorAll('.channel input').forEach((slider, index) => {
+  const fill = phone.querySelectorAll('.monitor-meter i')[index];
+  const sync = () => { fill.style.width = (100 * slider.value / slider.max) + '%'; };
+  slider.addEventListener('input', sync);
+  sync();
 });

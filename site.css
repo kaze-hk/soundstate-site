@@ -37,3 +37,24 @@
 .app-screen:not([hidden]),.shade:not([hidden]) { animation:surface-in .24s ease-out }
 @keyframes surface-in { from { opacity:.3; transform:translateY(8px) } }
 @media(prefers-reduced-motion:reduce) { .demo * { animation:none!important } }
+
+/* Product preview details */
+.demo {position:relative;isolation:isolate}
+.demo::before {content:"";position:absolute;inset:5% -4% 9%;z-index:-1;background:radial-gradient(ellipse,#35402f88,transparent 68%);pointer-events:none}
+.phone {width:min(100%,338px);padding:14px 18px 30px;border:4px solid #53594f;border-radius:39px;background:linear-gradient(145deg,#262b25,#151814 65%);box-shadow:inset 0 0 0 2px #080a07,0 2px 0 1px #767d6e,0 32px 46px -25px #000}
+.demo svg {display:inline-block;width:20px;height:20px;vertical-align:middle}
+.status-icons,.system-tile,.monitor-row,.monitor-title,.app-name {display:flex;align-items:center;gap:8px}
+.status-icons svg {width:15px;height:15px}
+.system-tile {font-weight:550}
+.sound-tile {background:linear-gradient(110deg,#e2f7c1,#b7d78c);margin-top:2px}
+.sound-tile b {font-size:16px}.sound-tile small {font-size:13px}
+.wallpaper {display:none}
+.monitor {margin-top:13px;background:#2c322a;border:1px solid #3b4237;border-radius:20px;padding:13px 16px 16px}
+.monitor-title {margin:0 0 11px;color:#eff2e8;font-size:16px;font-weight:550}
+.monitor-row {color:#b8c6ae;margin:8px 0;font-size:11px;line-height:1.2}
+.monitor-row svg {width:14px;height:14px}
+.monitor-meter {display:block;height:5px;border-radius:6px;background:#505949}
+.monitor-meter i {display:block;height:100%;border-radius:inherit;background:#ccdfb9}
+.tile-icon svg {width:24px;height:24px}.app-name svg {color:#c6deac}
+.hero {padding-block:clamp(38px,5vw,78px)}
+.shade h2 {font-weight:550;margin:10px 0 15px}
